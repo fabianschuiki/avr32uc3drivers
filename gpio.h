@@ -143,6 +143,21 @@ inline void gpio_pin_toggle (unsigned int pin) { gpio_port_toggle(gpio_portOfPin
 
 
 /**
+ * Input Value
+ */
+inline unsigned int gpio_port_get(volatile avr32_gpio_port_t * port, unsigned int mask)
+{
+	return (port->pvr & mask);
+}
+
+inline unsigned int gpio_pin_get(unsigned int pin)
+{
+	return gpio_port_get(gpio_portOfPin(pin), gpio_maskOfPin(pin)) ? 1 : 0;
+}
+
+
+
+/**
  * Direction
  */
 inline void gpio_port_setDirection(volatile avr32_gpio_port_t * port, unsigned int mask, unsigned int dir)
